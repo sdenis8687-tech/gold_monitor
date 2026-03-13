@@ -1,0 +1,25 @@
+{
+  "name": "@gold-monitor/worker",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "backfill": "ts-node --compiler-options {\"module\":\"CommonJS\"} src/backfill.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@gold-monitor/db": "workspace:*",
+    "@gold-monitor/shared": "workspace:*",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.15",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

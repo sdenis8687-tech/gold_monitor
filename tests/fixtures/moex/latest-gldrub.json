@@ -1,0 +1,14 @@
+{
+  "marketdata": {
+    "columns": ["SECID","BOARDID","LAST","OPEN","HIGH","LOW","CLOSE","NUMTRADES","VOLRUR","UPDATETIME","TRADINGSTATUS","SEQNUM"],
+    "data": [
+      ["GLDRUB_TOM","CETS",14052.31,13980.00,14100.50,13950.00,14010.00,1523,2145678900.00,"12:45:00","N",987654321]
+    ]
+  },
+  "securities": {
+    "columns": ["SECID","BOARDID","SHORTNAME","SECNAME","DECIMALS","MINSTEP"],
+    "data": [
+      ["GLDRUB_TOM","CETS","GLDRUB_TOM","Золото (расч. в конце дня)",2,0.01]
+    ]
+  }
+}

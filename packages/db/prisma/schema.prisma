@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model raw_quotes {
+  id               BigInt    @id @default(autoincrement())
+  source           String    @default("MOEX_ISS")
+  instrument       String
+  endpoint_kind    String
+  resolution_hint  String
+  request_ts_utc   DateTime  @db.Timestamptz
+  source_ts_utc    DateTime? @db.Timestamptz
+  http_status      Int
+  is_valid         Boolean
+  validation_status String
+  payload_json     Json
+  payload_hash     String
+
+  @@unique([instrument, endpoint_kind, payload_hash])
+  @@index([instrument, request_ts_utc(sort: Desc)])
+}
+
+model derived_quotes {
+  id                 BigInt    @id @default(autoincrement())
+  resolution         String
+  bucket_ts_utc      DateTime  @db.Timestamptz
+  gold_source_ts_utc DateTime? @db.Timestamptz
+  usd_source_ts_utc  DateTime? @db.Timestamptz
+  gold_999_rub_g     Decimal   @db.Decimal(18, 6)
+  gold_585_rub_g     Decimal   @db.Decimal(18, 2)
+  usd_rub            Decimal   @db.Decimal(18, 6)
+  gold_is_stale      Boolean   @default(false)
+  usd_is_stale       Boolean   @default(false)
+  row_status         String    @default("valid")
+  raw_gold_id        BigInt?
+  raw_usd_id         BigInt?
+  created_at_utc     DateTime  @default(now()) @db.Timestamptz
+
+  @@unique([resolution, bucket_ts_utc])
+  @@index([bucket_ts_utc(sort: Desc)])
+  @@index([resolution, bucket_ts_utc(sort: Desc)])
+}
+
+model alert_rules {
+  id                BigInt    @id @default(autoincrement())
+  metric            String
+  rule_type         String
+  threshold_value   Decimal   @db.Decimal(18, 6)
+  cooldown_minutes  Int
+  recipient_emails  String[]
+  is_active         Boolean   @default(true)
+  created_at_utc    DateTime  @default(now()) @db.Timestamptz
+  updated_at_utc    DateTime  @updatedAt @db.Timestamptz
+}
+
+model alert_events {
+  id                 BigInt    @id @default(autoincrement())
+  rule_id            BigInt
+  metric             String
+  rule_type          String
+  metric_value       Decimal   @db.Decimal(18, 6)
+  delta_abs          Decimal?  @db.Decimal(18, 6)
+  delta_pct          Decimal?  @db.Decimal(18, 6)
+  triggered_at_utc   DateTime  @db.Timestamptz
+  delivery_status    String
+  delivery_error     String?
+
+  @@index([rule_id, triggered_at_utc(sort: Desc)])
+  @@index([metric, triggered_at_utc(sort: Desc)])
+}

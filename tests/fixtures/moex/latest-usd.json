@@ -1,0 +1,14 @@
+{
+  "marketdata": {
+    "columns": ["SECID","BOARDID","LAST","OPEN","HIGH","LOW","CLOSE","NUMTRADES","VOLRUR","UPDATETIME","TRADINGSTATUS","SEQNUM"],
+    "data": [
+      ["USD000UTSTOM","CETS",91.3456,91.0000,91.8000,90.9500,91.2000,8745,456789012345.00,"12:45:00","N",987654322]
+    ]
+  },
+  "securities": {
+    "columns": ["SECID","BOARDID","SHORTNAME","SECNAME","DECIMALS","MINSTEP"],
+    "data": [
+      ["USD000UTSTOM","CETS","USD000UTSTOM","USDRUB_TOM - USD/РУБ",4,0.0001]
+    ]
+  }
+}

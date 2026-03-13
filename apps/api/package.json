@@ -1,0 +1,22 @@
+{
+  "name": "@gold-monitor/api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@gold-monitor/db": "workspace:*",
+    "@gold-monitor/shared": "workspace:*",
+    "fastify": "^4.27.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
+  }
+}
